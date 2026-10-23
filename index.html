@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="RailFlow — a modern railway operations dashboard UI." />
+  <title>RailFlow — Railway Operations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="loginScreen" class="login-screen">
+    <div class="login-art">
+      <div class="brand brand-light"><span class="brand-mark">R</span><span>railflow</span></div>
+      <div class="art-copy">
+        <div class="eyebrow"><span class="live-dot"></span> RAIL OPERATIONS PLATFORM</div>
+        <h1>Every journey.<br><em>Under control.</em></h1>
+        <p>A clearer view of your railway network, from live operations to passenger bookings.</p>
+      </div>
+      <div class="track-art"><div class="track-line"></div><div class="train-chip">▰ &nbsp; RF 204</div><div class="station s1">HYD</div><div class="station s2">SC</div><div class="station s3">VJA</div></div>
+      <div class="art-footer"><span>BUILT FOR MODERN RAILWAYS</span><span>01 / 04</span></div>
+    </div>
+    <div class="login-panel">
+      <div class="login-top"><span class="brand-mark small">R</span><span class="mobile-brand">railflow</span><span class="secure"><span>●</span> Secure workspace</span></div>
+      <div class="login-form-wrap">
+        <div class="eyebrow muted">WELCOME BACK</div>
+        <h2>Sign in to RailFlow</h2>
+        <p class="subcopy">Enter your details to access your operations workspace.</p>
+        <form id="loginForm">
+          <label for="email">Work email</label>
+          <div class="input-wrap"><span class="input-icon">✉</span><input id="email" type="email" placeholder="you@company.com" value="admin@railflow.io" required /></div>
+          <div class="label-row"><label for="password">Password</label><a href="#" id="forgotLink">Forgot password?</a></div>
+          <div class="input-wrap"><span class="input-icon">⌑</span><input id="password" type="password" placeholder="Enter your password" value="railflow123" required minlength="4" /><button class="eye-btn" type="button" id="togglePassword" aria-label="Show password">◉</button></div>
+          <div class="remember-row"><label class="check-label"><input type="checkbox" checked /> <span>Keep me signed in</span></label><span class="demo-label">DEMO ACCESS</span></div>
+          <button class="primary-btn full" type="submit">Sign in to workspace <span>→</span></button>
+          <div class="login-note" id="loginMessage">Demo: use the pre-filled credentials to explore the UI.</div>
+        </form>
+        <div class="login-divider"><span></span> <small>OR CONTINUE WITH</small> <span></span></div>
+        <button class="sso-btn" type="button" id="ssoBtn"><span class="google-g">G</span> Continue with Google</button>
+        <p class="terms">By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
+      </div>
+      <div class="login-bottom"><span>© 2026 RailFlow Systems</span><span>Need help? <a href="mailto:support@railflow.io">Contact support</a></span></div>
+    </div>
+  </div>
+
+  <div id="app" class="app hidden">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><span class="brand-mark">R</span><span>railflow</span><span class="brand-badge">OPS</span></div>
+      <div class="workspace"><div class="workspace-icon">⌂</div><div><strong>Central Operations</strong><small>India Network</small></div><span class="chevron">⌄</span></div>
+      <div class="nav-label">WORKSPACE</div>
+      <nav class="nav">
+        <button class="nav-item active" data-page="Overview"><span class="nav-icon">▦</span> Overview</button>
+        <button class="nav-item" data-page="Train Management"><span class="nav-icon">▰</span> Train management <span class="nav-count">24</span></button>
+        <button class="nav-item" data-page="Schedules"><span class="nav-icon">◷</span> Schedules</button>
+        <button class="nav-item" data-page="Bookings"><span class="nav-icon">▤</span> Bookings <span class="nav-count soft">8</span></button>
+        <button class="nav-item" data-page="Passengers"><span class="nav-icon">♙</span> Passengers</button>
+        <button class="nav-item" data-page="Stations"><span class="nav-icon">⌖</span> Stations</button>
+        <button class="nav-item" data-page="Payments"><span class="nav-icon">₹</span> Payments</button>
+      </nav>
+      <div class="nav-label insights-label">INSIGHTS</div>
+      <nav class="nav">
+        <button class="nav-item" data-page="Reports"><span class="nav-icon">▥</span> Reports & analytics</button>
+      </nav>
+      <div class="sidebar-spacer"></div>
+      <div class="help-card"><div class="help-icon">✦</div><strong>Need a hand?</strong><p>Visit our help center for tips and guides.</p><button id="helpBtn">Open help center <span>↗</span></button></div>
+      <button class="profile" id="profileBtn"><div class="avatar">AD</div><div class="profile-info"><strong>Alex Morgan</strong><small>System Administrator</small></div><span class="dots">•••</span></button>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Toggle menu">☰</button>
+        <div class="breadcrumb">Workspace <span>/</span> <strong id="breadcrumbPage">Overview</strong></div>
+        <div class="top-actions">
+          <div class="status-pill"><span class="live-dot"></span> All systems operational</div>
+          <button class="icon-btn" id="searchOpen" aria-label="Search">⌕</button>
+          <button class="icon-btn notification-btn" id="notificationBtn" aria-label="Notifications">♧<i></i></button>
+          <div class="top-avatar">AD</div>
+        </div>
+      </header>
+      <section class="content">
+        <div class="page-heading">
+          <div><div class="eyebrow muted" id="dateLabel">FRIDAY, OCTOBER 23, 2026</div><h1 id="pageTitle">Good morning, Alex <span class="wave">✳</span></h1><p id="pageSubtitle">Here's what's happening across your network today.</p></div>
+          <div class="heading-actions"><button class="secondary-btn" id="exportBtn"><span>↓</span> Export report</button><button class="primary-btn" id="addBookingBtn"><span>＋</span> New booking</button></div>
+        </div>
+        <div class="banner"><div class="banner-symbol">↗</div><div><strong>Network performance is looking good</strong><p>On-time performance is up <b>4.8%</b> compared to last week. Keep it moving.</p></div><button class="banner-link" id="viewReportBtn">View performance <span>→</span></button><button class="banner-close" id="bannerClose" aria-label="Dismiss">×</button></div>
+
+        <div class="section-head"><div><h2>Network at a glance</h2><p>Live snapshot of your railway operations</p></div><button class="period-select" id="periodBtn">Last 7 days <span>⌄</span></button></div>
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-top"><span>Total trains</span><span class="stat-icon purple">▰</span></div><div class="stat-number">248 <span class="trend up">↗ 12.5%</span></div><div class="stat-foot"><span>vs. previous week</span><div class="sparkline purple-line"><i style="height:35%"></i><i style="height:48%"></i><i style="height:42%"></i><i style="height:62%"></i><i style="height:55%"></i><i style="height:76%"></i><i style="height:92%"></i></div></div></article>
+          <article class="stat-card"><div class="stat-top"><span>Active bookings</span><span class="stat-icon blue">▤</span></div><div class="stat-number">18,429 <span class="trend up">↗ 8.2%</span></div><div class="stat-foot"><span>vs. previous week</span><div class="sparkline blue-line"><i style="height:38%"></i><i style="height:32%"></i><i style="height:55%"></i><i style="height:48%"></i><i style="height:70%"></i><i style="height:64%"></i><i style="height:90%"></i></div></div></article>
+          <article class="stat-card"><div class="stat-top"><span>Passengers today</span><span class="stat-icon orange">♙</span></div><div class="stat-number">32,810 <span class="trend up">↗ 5.4%</span></div><div class="stat-foot"><span>vs. previous week</span><div class="sparkline orange-line"><i style="height:45%"></i><i style="height:35%"></i><i style="height:53%"></i><i style="height:61%"></i><i style="height:56%"></i><i style="height:75%"></i><i style="height:88%"></i></div></div></article>
+          <article class="stat-card"><div class="stat-top"><span>Revenue collected</span><span class="stat-icon green">₹</span></div><div class="stat-number">₹24.8L <span class="trend up">↗ 11.7%</span></div><div class="stat-foot"><span>vs. previous week</span><div class="sparkline green-line"><i style="height:32%"></i><i style="height:46%"></i><i style="height:42%"></i><i style="height:60%"></i><i style="height:68%"></i><i style="height:63%"></i><i style="height:92%"></i></div></div></article>
+        </div>
+
+        <div class="dashboard-grid">
+          <section class="panel performance-panel"><div class="panel-head"><div><h2>Booking performance</h2><p>Booking volume across the network</p></div><button class="dots-btn" id="chartMenu">•••</button></div><div class="chart-legend"><span><i class="legend-dot violet-dot"></i> This week</span><span><i class="legend-dot gray-dot"></i> Last week</span><div class="chart-total"><strong>18,429</strong><small><span class="green-text">↗ 8.2%</span> vs last week</small></div></div>
+            <div class="chart-wrap"><div class="y-axis"><span>5k</span><span>4k</span><span>3k</span><span>2k</span><span>1k</span><span>0</span></div><div class="chart-area"><div class="grid-lines"><i></i><i></i><i></i><i></i><i></i><i></i></div><svg class="chart-svg" viewBox="0 0 700 220" preserveAspectRatio="none" aria-label="Booking performance chart"><defs><linearGradient id="areaFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#7764e8" stop-opacity=".22"/><stop offset="100%" stop-color="#7764e8" stop-opacity="0"/></linearGradient></defs><path d="M0 165 C45 150 55 125 100 140 S160 95 200 115 S260 145 300 95 S360 105 400 72 S460 110 500 65 S560 88 600 43 S660 58 700 20 L700 220 L0 220Z" fill="url(#areaFill)"/><path d="M0 165 C45 150 55 125 100 140 S160 95 200 115 S260 145 300 95 S360 105 400 72 S460 110 500 65 S560 88 600 43 S660 58 700 20" fill="none" stroke="#7866e8" stroke-width="3" vector-effect="non-scaling-stroke"/><path d="M0 185 C50 170 65 180 100 165 S160 150 200 165 S260 155 300 145 S360 165 400 130 S460 145 500 122 S560 138 600 105 S660 125 700 92" fill="none" stroke="#c8cbd8" stroke-width="2" stroke-dasharray="5 5" vector-effect="non-scaling-stroke"/></svg><div class="x-axis"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div></div></div>
+          </section>
+          <section class="panel status-panel"><div class="panel-head"><div><h2>Train status</h2><p>Current network availability</p></div><button class="text-action" data-goto="Train Management">View all →</button></div><div class="donut-area"><div class="donut"><div class="donut-center"><strong>248</strong><small>Total trains</small></div></div><div class="donut-legend"><div><span class="legend-dot green-dot"></span><span>Running</span><strong>186</strong><small>75%</small></div><div><span class="legend-dot violet-dot"></span><span>Scheduled</span><strong>42</strong><small>17%</small></div><div><span class="legend-dot orange-dot"></span><span>Maintenance</span><strong>20</strong><small>8%</small></div></div></div><div class="status-bottom"><span class="live-dot"></span> Updated just now <span>•</span> Auto-refresh enabled</div></section>
+        </div>
+
+        <section class="panel table-panel"><div class="panel-head table-panel-head"><div><h2>Recent train activity</h2><p>Monitor your latest train movements and schedules</p></div><div class="table-actions"><div class="table-search"><span>⌕</span><input id="tableSearch" placeholder="Search trains..." aria-label="Search trains" /></div><button class="secondary-btn compact" id="filterBtn">☷ Filters</button><button class="text-action" data-goto="Train Management">View all <span>→</span></button></div></div>
+          <div class="table-scroll"><table><thead><tr><th>TRAIN DETAILS</th><th>ROUTE</th><th>DEPARTURE</th><th>ARRIVAL</th><th>STATUS</th><th>OCCUPANCY</th><th></th></tr></thead><tbody id="trainTable">
+            <tr data-search="12701 rajdhani express mumbai new delhi"><td><div class="train-cell"><span class="train-icon">▰</span><div><strong>Rajdhani Express</strong><small>12701 · Express</small></div></div></td><td><div class="route-cell">Mumbai <span>→</span> New Delhi</div><small class="muted-small">1,384 km</small></td><td><strong>16:35</strong><small class="muted-small">CST, Mumbai</small></td><td><strong>08:30</strong><small class="muted-small">NDLS, Delhi</small></td><td><span class="status-tag running"><i></i> Running</span></td><td><div class="occupancy"><div class="occupancy-track"><i style="width:78%"></i></div><span>78%</span></div></td><td><button class="row-menu" aria-label="More options">•••</button></td></tr>
+            <tr data-search="12002 shatabdi express new delhi chandigarh"><td><div class="train-cell"><span class="train-icon blue-bg">▰</span><div><strong>Shatabdi Express</strong><small>12002 · Superfast</small></div></div></td><td><div class="route-cell">New Delhi <span>→</span> Chandigarh</div><small class="muted-small">244 km</small></td><td><strong>17:20</strong><small class="muted-small">NDLS, Delhi</small></td><td><strong>20:35</strong><small class="muted-small">CDG, Chandigarh</small></td><td><span class="status-tag scheduled"><i></i> Scheduled</span></td><td><div class="occupancy"><div class="occupancy-track"><i style="width:54%"></i></div><span>54%</span></div></td><td><button class="row-menu" aria-label="More options">•••</button></td></tr>
+            <tr data-search="12627 karnataka express bengaluru new delhi"><td><div class="train-cell"><span class="train-icon orange-bg">▰</span><div><strong>Karnataka Express</strong><small>12627 · Express</small></div></div></td><td><div class="route-cell">Bengaluru <span>→</span> New Delhi</div><small class="muted-small">2,405 km</small></td><td><strong>19:20</strong><small class="muted-small">SBC, Bengaluru</small></td><td><strong>10:30</strong><small class="muted-small">NDLS, Delhi</small></td><td><span class="status-tag maintenance"><i></i> Maintenance</span></td><td><div class="occupancy"><div class="occupancy-track"><i style="width:32%"></i></div><span>32%</span></div></td><td><button class="row-menu" aria-label="More options">•••</button></td></tr>
+            <tr data-search="12760 charminar express hyderabad chennai"><td><div class="train-cell"><span class="train-icon green-bg">▰</span><div><strong>Charminar Express</strong><small>12760 · Express</small></div></div></td><td><div class="route-cell">Hyderabad <span>→</span> Chennai</div><small class="muted-small">790 km</small></td><td><strong>18:10</strong><small class="muted-small">HYB, Hyderabad</small></td><td><strong>06:50</strong><small class="muted-small">MAS, Chennai</small></td><td><span class="status-tag running"><i></i> Running</span></td><td><div class="occupancy"><div class="occupancy-track"><i style="width:91%"></i></div><span>91%</span></div></td><td><button class="row-menu" aria-label="More options">•••</button></td></tr>
+          </tbody></table><div class="empty-state hidden" id="emptyState">No trains match your search.</div></div>
+          <div class="table-footer"><span>Showing <strong id="showingCount">4</strong> of 248 trains</span><div class="pagination"><button disabled>←</button><button class="page-current">1</button><button>2</button><button>3</button><span>...</span><button>25</button><button>→</button></div></div>
+        </section>
+        <footer class="app-footer"><span>© 2026 RailFlow Systems</span><span><span class="live-dot"></span> All systems operational <span class="footer-divider">·</span> Last synced 30 seconds ago</span></footer>
+      </section>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+  <div id="modalBackdrop" class="modal-backdrop hidden"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-head"><div><div class="eyebrow muted">RAILFLOW WORKSPACE</div><h2 id="modalTitle">New booking</h2></div><button class="close-modal" id="closeModal" aria-label="Close">×</button></div><form id="bookingForm"><label for="passengerName">Passenger name</label><input id="passengerName" required placeholder="Enter passenger name" /><div class="form-two"><div><label for="trainSelect">Train</label><select id="trainSelect"><option>12701 · Rajdhani Express</option><option>12002 · Shatabdi Express</option><option>12760 · Charminar Express</option><option>12627 · Karnataka Express</option></select></div><div><label for="journeyDate">Journey date</label><input id="journeyDate" type="date" required /></div></div><div class="form-two"><div><label for="classSelect">Class</label><select id="classSelect"><option>AC First Class</option><option>AC 2 Tier</option><option>AC 3 Tier</option><option>Sleeper</option><option>Chair Car</option></select></div><div><label for="seatCount">Passengers</label><select id="seatCount"><option>1 passenger</option><option>2 passengers</option><option>3 passengers</option><option>4 passengers</option></select></div></div><div class="modal-actions"><button class="secondary-btn" type="button" id="cancelModal">Cancel</button><button class="primary-btn" type="submit">Create booking <span>→</span></button></div></form></div></div>
+  <script src="app.js"></script>
+</body>
+</html>
