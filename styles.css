@@ -6,3 +6,69 @@ h1,h2,h3,strong{font-family:'Manrope','DM Sans',sans-serif}h1,h2,p{margin-top:0}
 @media(max-width:1200px){.content{padding:25px 22px 18px}.topbar{padding:0 22px}.sidebar{width:220px}.main{margin-left:220px}.stats-grid{gap:10px}.stat-card{padding:14px 12px}.stat-number{font-size:22px}.dashboard-grid{grid-template-columns:1.25fr 1fr}.donut{width:115px;height:115px}.donut:after{inset:12px}.donut-legend{min-width:115px}.table-panel-head{align-items:flex-start;flex-direction:column}.table-actions{width:100%}.table-search{flex:1;max-width:240px}}
 @media(max-width:900px){.login-screen{grid-template-columns:1fr}.login-art{display:none}.login-panel{min-height:100vh;padding:25px 7%}.mobile-brand{display:inline}.login-form-wrap{margin:auto}.sidebar{transform:translateX(-100%);transition:transform .25s;box-shadow:none}.sidebar.open{transform:translateX(0);box-shadow:10px 0 40px #17163218}.main{margin-left:0}.mobile-menu{display:block}.topbar{gap:15px}.breadcrumb{margin-right:auto}.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.dashboard-grid{grid-template-columns:1fr}.donut-area{justify-content:center;gap:35px}.table-panel-head{flex-direction:row;align-items:center}.table-actions{width:auto}.table-search{width:135px}.page-heading{align-items:flex-start}.page-heading h1{font-size:23px}}
 @media(max-width:600px){.topbar{height:58px;padding:0 15px}.top-actions{gap:8px}.status-pill{display:none}.content{padding:22px 14px 15px}.page-heading{display:block}.heading-actions{margin-top:17px}.heading-actions button{flex:1}.banner{align-items:flex-start;padding:12px}.banner-link{display:none}.banner-close{margin-left:auto}.section-head h2{font-size:13px}.stats-grid{gap:9px}.stat-card{padding:12px 10px}.stat-top{font-size:10px}.stat-icon{width:27px;height:27px}.stat-number{font-size:21px;margin:12px 0}.trend{display:block;width:max-content;margin:7px 0 0;font-size:8px}.stat-foot{font-size:8px}.sparkline{width:45px}.performance-panel,.status-panel{padding:15px 12px}.donut-area{gap:17px}.donut{width:105px;height:105px}.donut-legend{min-width:125px}.table-panel-head{padding:0 13px 14px;align-items:flex-start;flex-direction:column}.table-actions{width:100%;gap:6px}.table-search{width:auto;flex:1}.text-action{font-size:9px}.table-footer{padding:12px;align-items:flex-start;gap:10px;flex-direction:column}.app-footer{flex-direction:column}.login-bottom{font-size:9px;flex-wrap:wrap}.login-form-wrap h2{font-size:25px}.form-two{grid-template-columns:1fr;gap:0}.modal{padding:20px}.breadcrumb{font-size:10px}.breadcrumb span{margin:0 5px}.icon-btn{width:23px}.top-avatar{display:none}}
+
+
+/* RailFlow booking entry page — reference-inspired, frontend-only design */
+body:has(.booking-login){background:#eeeeed;color:#f8f8f8;min-height:100vh}
+.booking-login{width:min(1420px,calc(100% - 48px));min-height:min(790px,calc(100vh - 48px));height:min(790px,calc(100vh - 48px));margin:24px auto;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(390px,.72fr);background:#111;overflow:hidden;box-shadow:0 24px 80px rgba(14,14,14,.18);font-family:'DM Sans',sans-serif}
+.booking-art{position:relative;min-width:0;overflow:hidden;background:#181818;color:#fff;isolation:isolate}
+.booking-art-photo{position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(5,5,5,.22),rgba(7,7,7,.10) 58%,rgba(8,8,8,.55)),url('assets/railway-hero.jpg');background-size:cover;background-position:55% center;filter:grayscale(.82) contrast(1.04);z-index:-2}
+.booking-orange-stripe{position:absolute;top:0;bottom:0;left:19%;width:25%;background:linear-gradient(180deg,rgba(243,101,49,.92),rgba(229,89,40,.65));mix-blend-mode:multiply;z-index:-1;pointer-events:none}
+.booking-art-top{display:flex;justify-content:space-between;align-items:center;padding:30px 34px;position:relative;z-index:1}
+.rail-brand{display:flex;align-items:center;gap:11px;color:#fff;text-decoration:none}
+.rail-brand-icon{width:39px;height:39px;display:grid;place-items:center;background:#f16935;color:#fff;font-size:27px;font-weight:700;border-radius:2px;transform:rotate(-3deg)}
+.rail-brand strong{display:block;font:800 23px Manrope,sans-serif;letter-spacing:-.7px}
+.rail-brand small{display:block;margin-top:2px;font-size:8px;letter-spacing:2.5px;color:#d9d9d9}
+.art-network{font-size:9px;letter-spacing:1.7px;color:rgba(255,255,255,.78)}
+.booking-art-copy{position:absolute;left:8%;top:34%;width:51%;z-index:2;text-shadow:0 3px 16px rgba(0,0,0,.35)}
+.booking-kicker{display:flex;align-items:center;gap:8px;font-size:9px;letter-spacing:1.6px;font-weight:700;color:#fff;text-transform:uppercase}
+.booking-kicker .live-dot{width:7px;height:7px;box-shadow:0 0 0 4px rgba(255,255,255,.16)}
+.booking-art-copy h1{font:800 clamp(42px,5vw,73px)/.99 Manrope,sans-serif;letter-spacing:-3.8px;margin:25px 0 20px;color:#fff}
+.booking-art-copy h1 span{color:#ff9a6a}
+.booking-art-copy p{font-size:14px;line-height:1.8;color:rgba(255,255,255,.84);max-width:355px}
+.vertical-word{position:absolute;z-index:1;left:21%;top:34%;writing-mode:vertical-rl;transform:rotate(180deg);font:700 63px/.9 Manrope,sans-serif;letter-spacing:2px;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.56);opacity:.75;pointer-events:none}
+.booking-art-bottom{position:absolute;left:34px;right:34px;bottom:25px;display:flex;justify-content:space-between;align-items:center;color:rgba(255,255,255,.78);font-size:8px;letter-spacing:1.7px;z-index:2}
+.booking-art-bottom span:last-child{display:flex;align-items:center;gap:8px}
+.booking-art-bottom i{width:24px;height:1px;background:#f26b36;display:block}
+.booking-panel{position:relative;min-width:0;background:#171717;display:flex;flex-direction:column;padding:29px clamp(28px,4vw,54px) 24px;color:#f6f6f6;border-left:1px solid rgba(255,255,255,.08)}
+.booking-panel-top{display:flex;align-items:center;gap:10px;min-height:43px}
+.rail-mark-small{display:grid;place-items:center;width:32px;height:32px;background:#f36b36;color:white;font:800 11px Manrope,sans-serif;letter-spacing:-.4px;border-radius:50%}
+.booking-panel-brand strong{display:block;font:700 13px Manrope,sans-serif}
+.booking-panel-brand span{display:block;margin-top:3px;color:#8f8f8f;font-size:9px}
+.official-chip{margin-left:auto;white-space:nowrap;border:1px solid #363636;border-radius:99px;padding:7px 10px;font-size:8px;letter-spacing:1px;color:#bcbcbc;display:flex;align-items:center;gap:7px}
+.official-chip span{width:5px;height:5px;border-radius:50%;background:#f36b36;display:block}
+.booking-form-wrap{width:100%;max-width:400px;margin:auto}
+.railway-brandline{display:flex;align-items:center;gap:8px;color:#a6a6a6;font-size:9px;font-weight:700;letter-spacing:1.05px;margin-bottom:34px}
+.mini-train{width:21px;height:21px;display:grid;place-items:center;border-radius:50%;background:#292929;color:#f36b36;font-size:13px}
+.brand-divider{color:#505050}
+.booking-form-wrap h2{font:400 clamp(33px,3.2vw,45px)/1.05 Manrope,sans-serif;letter-spacing:-1.4px;margin:0 0 13px;color:#ededed}
+.orange-period{color:#f36b36;font-weight:800}
+.booking-subtitle{font-size:12px;color:#8e8e8e;line-height:1.6;margin-bottom:28px;max-width:335px}
+.ticket-search-form{position:relative}
+.ticket-field-group{margin-bottom:21px}
+.ticket-field-group label{display:block;color:#c3c3c3;font-size:9px;font-weight:700;letter-spacing:1.3px;margin-bottom:9px}
+.ticket-input-wrap{height:49px;display:flex;align-items:center;gap:11px;padding:0 14px;border:1px solid #3a3a3a;border-radius:5px;background:#1b1b1b;transition:border-color .18s,box-shadow .18s}
+.ticket-input-wrap:focus-within,.ticket-input-wrap.active-field{border-color:#b85f39;box-shadow:0 0 0 1px rgba(241,103,52,.06)}
+.field-pin{font-size:9px;color:#777;flex:0 0 auto}
+.origin-pin{color:#f36b36}
+.ticket-input-wrap input{border:0;outline:0;min-width:0;width:100%;height:100%;background:transparent;color:#f6f6f6;font:400 12px 'DM Sans',sans-serif;accent-color:#f36b36}
+.ticket-input-wrap input::placeholder{color:#6d6d6d}
+.ticket-input-wrap input[type=date]{color-scheme:dark}
+.calendar-icon{font-size:16px;color:#858585}
+.swap-stations{position:absolute;right:13px;top:89px;width:26px;height:26px;border:1px solid #454545;border-radius:50%;background:#242424;color:#f36b36;font-size:16px;z-index:2;transform:translateY(-50%);display:grid;place-items:center}
+.swap-stations:hover{background:#f36b36;color:white;border-color:#f36b36}
+.ticket-search-btn{width:100%;height:48px;margin-top:4px;border:0;border-radius:4px;background:#f16631;color:#fff;display:flex;align-items:center;justify-content:center;gap:11px;font-size:11px;font-weight:800;letter-spacing:.8px;transition:background .18s,transform .18s}
+.ticket-search-btn:hover{background:#ff7a45;transform:translateY(-1px)}
+.ticket-search-btn span{font-size:18px;font-weight:400}
+.ticket-search-message{display:none;border-left:2px solid #f36b36;background:#222;color:#c9c9c9;padding:11px 12px;margin:13px 0 0;font-size:10px;line-height:1.6}
+.ticket-search-message.visible{display:block}
+.ticket-search-message.error{border-color:#e65b5b;color:#ffb4b4}
+.booking-assurance{display:flex;align-items:center;gap:10px;margin-top:25px;padding-top:18px;border-top:1px solid #303030}
+.assurance-icon{display:grid;place-items:center;width:23px;height:23px;flex-shrink:0;border:1px solid #3a3a3a;border-radius:50%;color:#f36b36;font-size:12px}
+.booking-assurance strong{display:block;font-size:10px;color:#c6c6c6;font-weight:600}
+.booking-assurance small{display:block;font-size:9px;color:#777;margin-top:4px}
+.booking-panel-footer{display:flex;justify-content:space-between;align-items:center;gap:8px;color:#6f6f6f;font-size:9px;margin-top:20px}
+.booking-panel-footer b{display:inline-block;color:#f36b36;font-size:8px;margin-left:5px}
+@media(max-width:1000px){.booking-login{grid-template-columns:minmax(0,1fr) minmax(360px,.8fr);width:calc(100% - 28px);height:calc(100vh - 28px);min-height:650px;margin:14px auto}.booking-art-top{padding:24px}.booking-art-copy{top:36%;left:7%;width:61%}.booking-art-copy h1{font-size:clamp(39px,5.4vw,58px)}.art-network{display:none}.booking-panel{padding:24px 28px}.vertical-word{font-size:52px;left:15%}}
+@media(max-width:720px){body:has(.booking-login){background:#171717}.booking-login{display:flex;flex-direction:column;width:100%;height:auto;min-height:100vh;margin:0;overflow:visible;box-shadow:none}.booking-art{min-height:320px;height:35vh;max-height:390px;flex:0 0 auto}.booking-art-photo{background-position:57% 43%}.booking-art-top{padding:20px 22px}.rail-brand strong{font-size:19px}.booking-art-copy{top:auto;bottom:48px;left:22px;width:min(70%,420px);padding-right:10px}.booking-kicker{font-size:8px}.booking-art-copy h1{font-size:clamp(34px,7vw,52px);letter-spacing:-2.2px;margin:13px 0 8px}.booking-art-copy p{font-size:11px;line-height:1.5;margin:0;max-width:300px}.vertical-word{left:auto;right:9%;top:22%;font-size:35px;opacity:.45}.booking-art-bottom{left:22px;right:22px;bottom:15px;font-size:7px}.booking-panel{padding:21px 23px 18px;min-height:565px;border-left:0;border-top:1px solid #333}.booking-form-wrap{margin:35px auto 20px;max-width:470px}.railway-brandline{margin-bottom:21px}.booking-form-wrap h2{font-size:36px}.booking-subtitle{margin-bottom:24px}.ticket-field-group{margin-bottom:17px}.swap-stations{top:86px}.booking-assurance{margin-top:20px}.booking-panel-footer{margin-top:16px}}
+@media(max-width:390px){.booking-panel{padding-left:18px;padding-right:18px}.official-chip{font-size:7px;padding:6px 7px}.booking-art-copy{width:82%}.booking-art-copy h1{font-size:32px}.booking-form-wrap h2{font-size:32px}.booking-panel-footer{font-size:8px}}

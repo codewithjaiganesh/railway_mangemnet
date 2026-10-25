@@ -3,46 +3,90 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="RailFlow — a modern railway operations dashboard UI." />
-  <title>RailFlow — Railway Operations</title>
+  <meta name="description" content="RailFlow — a modern railway ticket-search and management UI." />
+  <title>RailFlow — Book Your Journey</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div id="loginScreen" class="login-screen">
-    <div class="login-art">
-      <div class="brand brand-light"><span class="brand-mark">R</span><span>railflow</span></div>
-      <div class="art-copy">
-        <div class="eyebrow"><span class="live-dot"></span> RAIL OPERATIONS PLATFORM</div>
-        <h1>Every journey.<br><em>Under control.</em></h1>
-        <p>A clearer view of your railway network, from live operations to passenger bookings.</p>
+  <div id="loginScreen" class="login-screen booking-login">
+    <section class="booking-art" aria-label="Railway journey visual">
+      <div class="booking-art-photo"></div>
+      <div class="booking-orange-stripe"></div>
+      <div class="booking-art-top">
+        <a class="rail-brand" href="#" aria-label="RailFlow home">
+          <span class="rail-brand-icon" aria-hidden="true">↗</span>
+          <span><strong>RailFlow</strong><small>JOURNEY PLANNER</small></span>
+        </a>
+        <span class="art-network">RAIL NETWORK · INDIA</span>
       </div>
-      <div class="track-art"><div class="track-line"></div><div class="train-chip">▰ &nbsp; RF 204</div><div class="station s1">HYD</div><div class="station s2">SC</div><div class="station s3">VJA</div></div>
-      <div class="art-footer"><span>BUILT FOR MODERN RAILWAYS</span><span>01 / 04</span></div>
-    </div>
-    <div class="login-panel">
-      <div class="login-top"><span class="brand-mark small">R</span><span class="mobile-brand">railflow</span><span class="secure"><span>●</span> Secure workspace</span></div>
-      <div class="login-form-wrap">
-        <div class="eyebrow muted">WELCOME BACK</div>
-        <h2>Sign in to RailFlow</h2>
-        <p class="subcopy">Enter your details to access your operations workspace.</p>
-        <form id="loginForm">
-          <label for="email">Work email</label>
-          <div class="input-wrap"><span class="input-icon">✉</span><input id="email" type="email" placeholder="you@company.com" value="admin@railflow.io" required /></div>
-          <div class="label-row"><label for="password">Password</label><a href="#" id="forgotLink">Forgot password?</a></div>
-          <div class="input-wrap"><span class="input-icon">⌑</span><input id="password" type="password" placeholder="Enter your password" value="railflow123" required minlength="4" /><button class="eye-btn" type="button" id="togglePassword" aria-label="Show password">◉</button></div>
-          <div class="remember-row"><label class="check-label"><input type="checkbox" checked /> <span>Keep me signed in</span></label><span class="demo-label">DEMO ACCESS</span></div>
-          <button class="primary-btn full" type="submit">Sign in to workspace <span>→</span></button>
-          <div class="login-note" id="loginMessage">Demo: use the pre-filled credentials to explore the UI.</div>
+      <div class="booking-art-copy">
+        <div class="booking-kicker"><span class="live-dot"></span> YOUR JOURNEY STARTS HERE</div>
+        <h1>Go further.<br><span>Travel smarter.</span></h1>
+        <p>Discover your next destination with a simpler way to plan rail journeys.</p>
+      </div>
+      <div class="vertical-word" aria-hidden="true">RAILFLOW&nbsp; RAILFLOW&nbsp; RAILFLOW</div>
+      <div class="booking-art-bottom"><span>CONNECTING PEOPLE &amp; PLACES</span><span>01 <i></i> 04</span></div>
+    </section>
+
+    <section class="booking-panel" aria-labelledby="bookingHeading">
+      <div class="booking-panel-top">
+        <div class="rail-mark-small" aria-hidden="true">RF</div>
+        <div class="booking-panel-brand"><strong>RailFlow</strong><span>Indian Railways journey portal</span></div>
+        <span class="official-chip"><span></span> DEMO PORTAL</span>
+      </div>
+
+      <div class="booking-form-wrap">
+        <div class="railway-brandline"><span class="mini-train" aria-hidden="true">▰</span><span>RAILFLOW</span><span class="brand-divider">/</span><span>INDIAN RAILWAYS</span></div>
+        <h2 id="bookingHeading">BOOK TICKET<span class="orange-period">.</span></h2>
+        <p class="booking-subtitle">Plan your next trip. Choose your route and travel date.</p>
+
+        <form id="ticketSearchForm" class="ticket-search-form">
+          <div class="ticket-field-group">
+            <label for="fromStation">FROM</label>
+            <div class="ticket-input-wrap active-field">
+              <span class="field-pin origin-pin" aria-hidden="true">●</span>
+              <input id="fromStation" name="fromStation" type="text" list="stationOptions" placeholder="Search source station" autocomplete="off" required />
+            </div>
+          </div>
+          <button class="swap-stations" id="swapStations" type="button" aria-label="Swap departure and destination" title="Swap stations">↕</button>
+          <div class="ticket-field-group">
+            <label for="toStation">TO</label>
+            <div class="ticket-input-wrap">
+              <span class="field-pin" aria-hidden="true">●</span>
+              <input id="toStation" name="toStation" type="text" list="stationOptions" placeholder="Search destination station" autocomplete="off" required />
+            </div>
+          </div>
+          <datalist id="stationOptions">
+            <option value="Hyderabad Deccan (HYB)"></option>
+            <option value="Secunderabad Junction (SC)"></option>
+            <option value="Vijayawada Junction (BZA)"></option>
+            <option value="Chennai Central (MAS)"></option>
+            <option value="Bengaluru City (SBC)"></option>
+            <option value="Mumbai Central (MMCT)"></option>
+            <option value="New Delhi (NDLS)"></option>
+            <option value="Visakhapatnam (VSKP)"></option>
+            <option value="Tirupati (TPTY)"></option>
+            <option value="Pune Junction (PUNE)"></option>
+          </datalist>
+          <div class="ticket-field-group date-field-group">
+            <label for="ticketDate">JOURNEY DATE</label>
+            <div class="ticket-input-wrap">
+              <span class="calendar-icon" aria-hidden="true">▦</span>
+              <input id="ticketDate" name="ticketDate" type="date" required />
+            </div>
+          </div>
+          <button class="ticket-search-btn" type="submit">SEARCH TRAINS <span aria-hidden="true">→</span></button>
+          <p class="ticket-search-message" id="searchMessage" role="status" aria-live="polite">Train availability and booking will be connected in the next development step.</p>
         </form>
-        <div class="login-divider"><span></span> <small>OR CONTINUE WITH</small> <span></span></div>
-        <button class="sso-btn" type="button" id="ssoBtn"><span class="google-g">G</span> Continue with Google</button>
-        <p class="terms">By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
+
+        <div class="booking-assurance"><span class="assurance-icon" aria-hidden="true">✓</span><span><strong>Simple, clear, and easy to use</strong><small>Backend and database integration will come next.</small></span></div>
       </div>
-      <div class="login-bottom"><span>© 2026 RailFlow Systems</span><span>Need help? <a href="mailto:support@railflow.io">Contact support</a></span></div>
-    </div>
+
+      <footer class="booking-panel-footer"><span>© 2026 RailFlow</span><span>Made for better journeys <b>●</b></span></footer>
+    </section>
   </div>
 
   <div id="app" class="app hidden">

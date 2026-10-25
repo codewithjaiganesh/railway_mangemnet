@@ -8,25 +8,42 @@ const toast = (message) => {
   window.toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
 };
 
-$('#loginForm').addEventListener('submit', (event) => {
-  event.preventDefault();
-  const email = $('#email').value.trim();
-  const password = $('#password').value;
-  if (!email || !password) return;
-  $('#loginScreen').classList.add('hidden');
-  $('#app').classList.remove('hidden');
-  toast('Welcome to your RailFlow workspace.');
+// Frontend-only railway search page. Train availability will be wired to the backend later.
+const ticketDateInput = $('#ticketDate');
+const todayLocal = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+ticketDateInput.min = todayLocal;
+ticketDateInput.value = todayLocal;
+
+$('#swapStations').addEventListener('click', () => {
+  const from = $('#fromStation');
+  const to = $('#toStation');
+  const previousFrom = from.value;
+  from.value = to.value;
+  to.value = previousFrom;
+  from.focus();
 });
 
-$('#togglePassword').addEventListener('click', () => {
-  const input = $('#password');
-  input.type = input.type === 'password' ? 'text' : 'password';
+$('#ticketSearchForm').addEventListener('submit', (event) => {
+  event.preventDefault();
+  const from = $('#fromStation').value.trim();
+  const to = $('#toStation').value.trim();
+  const date = $('#ticketDate').value;
+  const message = $('#searchMessage');
+  message.classList.remove('error');
+  if (from.toLowerCase() === to.toLowerCase()) {
+    message.textContent = 'Choose two different stations to plan your journey.';
+    message.classList.add('visible', 'error');
+    return;
+  }
+  if (date < ticketDateInput.min) {
+    message.textContent = 'Please choose today or a future journey date.';
+    message.classList.add('visible', 'error');
+    return;
+  }
+  message.textContent = `Your route ${from} → ${to} for ${date} is ready to connect. Live train results will be available after backend and database integration.`;
+  message.classList.add('visible');
 });
-$('#forgotLink').addEventListener('click', (e) => {
-  e.preventDefault();
-  $('#loginMessage').textContent = 'Password reset is a demo feature. Contact your workspace administrator.';
-});
-$('#ssoBtn').addEventListener('click', () => toast('Google SSO is a demo feature and is not connected.'));
+
 $('#profileBtn').addEventListener('click', () => toast('Signed in as Alex Morgan · System Administrator.'));
 $('#helpBtn').addEventListener('click', () => toast('Help center: support@railflow.io'));
 $('#notificationBtn').addEventListener('click', () => toast('You’re all caught up — no new notifications.'));
