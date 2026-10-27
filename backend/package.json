@@ -1,0 +1,30 @@
+{
+  "name": "railflow-backend",
+  "version": "1.0.0",
+  "description": "RailFlow demo railway booking API with Aiven MySQL",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "db:test": "node test.js",
+    "db:schema": "node run-schema.js",
+    "db:seed": "node seed-data.js",
+    "db:admin": "node create-admin.js",
+    "db:console": "node sql-console.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "mysql2": "^3.24.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

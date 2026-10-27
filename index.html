@@ -79,15 +79,53 @@
             </div>
           </div>
           <button class="ticket-search-btn" type="submit">SEARCH TRAINS <span aria-hidden="true">→</span></button>
-          <p class="ticket-search-message" id="searchMessage" role="status" aria-live="polite">Train availability and booking will be connected in the next development step.</p>
+          <p class="ticket-search-message" id="searchMessage" role="status" aria-live="polite">Search demonstration schedules, then sign in to book or open the admin workspace.</p>
         </form>
 
-        <div class="booking-assurance"><span class="assurance-icon" aria-hidden="true">✓</span><span><strong>Simple, clear, and easy to use</strong><small>Backend and database integration will come next.</small></span></div>
+        <div class="booking-assurance"><span class="assurance-icon" aria-hidden="true">✓</span><span><strong>Simple, clear, and easy to use</strong><small>Database-backed demo bookings · Passenger and admin access</small></span></div>
       </div>
 
       <footer class="booking-panel-footer"><span>© 2026 RailFlow</span><span>Made for better journeys <b>●</b></span></footer>
     </section>
   </div>
+
+  <section id="authScreen" class="flow-auth hidden" aria-labelledby="authTitle">
+    <div class="flow-auth-art">
+      <a class="flow-auth-brand" href="#" id="authBrandHome"><span class="flow-auth-logo">RF</span><span><strong>RailFlow</strong><small>JOURNEY PLANNER</small></span></a>
+      <div class="flow-auth-kicker"><span class="live-dot"></span> YOUR JOURNEY, YOUR WAY</div>
+      <h1>One network.<br><span>Every journey.</span></h1>
+      <p>Sign in to reserve a demo journey, or choose administrator access to review all trains, schedules, passengers and bookings.</p>
+      <div class="flow-route-preview" id="authRouteSummary">Route search summary will appear here.</div>
+      <div class="flow-demo-note"><strong>Student project demo</strong><span>Schedules and fares are sample data, not live Indian Railways inventory.</span></div>
+    </div>
+    <div class="flow-auth-panel">
+      <button type="button" class="flow-back-link" id="backToSearch">← Back to train search</button>
+      <div class="flow-auth-heading"><div class="eyebrow muted">RAILFLOW ACCOUNT</div><h2 id="authTitle">Sign in to continue<span>.</span></h2><p id="authSubtitle">Choose your access type to continue with this journey.</p></div>
+      <div class="flow-role-tabs" role="group" aria-label="Choose access type">
+        <button type="button" class="active" data-auth-role="passenger">Passenger</button>
+        <button type="button" data-auth-role="admin">Administrator</button>
+      </div>
+      <form id="authForm" class="flow-auth-form">
+        <div id="authNameGroup"><label for="authName">FULL NAME</label><input id="authName" name="full_name" autocomplete="name" placeholder="Your full name" /></div>
+        <div><label for="authEmail">EMAIL ADDRESS</label><input id="authEmail" name="email" type="email" autocomplete="username" placeholder="you@example.com" required /></div>
+        <div><label for="authPassword">PASSWORD</label><input id="authPassword" name="password" type="password" autocomplete="current-password" minlength="8" placeholder="At least 8 characters" required /></div>
+        <p id="authError" class="flow-error hidden" role="alert"></p>
+        <button type="submit" id="authSubmit" class="flow-submit">Sign in and continue <span>→</span></button>
+        <p class="flow-mode-line" id="authModeLine">New to RailFlow? <button type="button" id="authModeToggle">Create a passenger account</button></p>
+      </form>
+      <p class="flow-auth-foot">Your account is stored in the RailFlow demo database. Passwords are hashed before storage.</p>
+    </div>
+  </section>
+
+  <section id="passengerPortal" class="passenger-portal hidden" aria-label="Passenger workspace">
+    <header class="passenger-topbar"><a class="passenger-brand" href="#" id="passengerBrandHome"><span>RF</span><strong>RailFlow</strong></a><div class="passenger-top-actions"><span id="passengerWelcome">Welcome</span><button type="button" class="secondary-btn" id="passengerLogout">Sign out</button></div></header>
+    <main class="passenger-content">
+      <div class="passenger-page-heading"><div><div class="eyebrow muted">PASSENGER WORKSPACE</div><h1>Your next journey<span>.</span></h1><p id="passengerRouteSummary">Search result details</p></div><button type="button" class="secondary-btn" id="passengerBackToSearch">Change journey</button></div>
+      <div class="passenger-demo-banner"><strong>Demo data notice</strong><span>These train schedules and fares are sample records for your project presentation, not live railway availability.</span></div>
+      <section class="panel passenger-results-panel"><div class="panel-head"><div><h2>Available demo trains</h2><p>Choose a schedule and book a seat.</p></div><span class="flow-small-pill" id="searchResultCount">0 schedules</span></div><div id="searchResults" class="search-results-list"></div></section>
+      <section class="panel passenger-bookings-panel"><div class="panel-head"><div><h2>My bookings</h2><p>Bookings saved to the Aiven MySQL database.</p></div><button type="button" class="text-action" id="refreshMyBookings">Refresh ↻</button></div><div class="table-scroll"><table><thead><tr><th>REFERENCE</th><th>TRAIN</th><th>JOURNEY DATE</th><th>SEATS</th><th>FARE</th><th>STATUS</th></tr></thead><tbody id="myBookingsBody"><tr><td colspan="6">Sign in to load your bookings.</td></tr></tbody></table></div><p id="myBookingsMessage" class="flow-table-message" role="status"></p></section>
+    </main>
+  </section>
 
   <div id="app" class="app hidden">
     <aside class="sidebar" id="sidebar">
@@ -117,7 +155,7 @@
         <button class="mobile-menu" id="mobileMenu" aria-label="Toggle menu">☰</button>
         <div class="breadcrumb">Workspace <span>/</span> <strong id="breadcrumbPage">Overview</strong></div>
         <div class="top-actions">
-          <div class="status-pill"><span class="live-dot"></span> All systems operational</div>
+          <div class="status-pill"><span class="live-dot"></span> Database connected</div><button type="button" class="secondary-btn admin-logout-btn" id="adminLogout">Sign out</button>
           <button class="icon-btn" id="searchOpen" aria-label="Search">⌕</button>
           <button class="icon-btn notification-btn" id="notificationBtn" aria-label="Notifications">♧<i></i></button>
           <div class="top-avatar">AD</div>
@@ -128,6 +166,18 @@
           <div><div class="eyebrow muted" id="dateLabel">FRIDAY, OCTOBER 23, 2026</div><h1 id="pageTitle">Good morning, Alex <span class="wave">✳</span></h1><p id="pageSubtitle">Here's what's happening across your network today.</p></div>
           <div class="heading-actions"><button class="secondary-btn" id="exportBtn"><span>↓</span> Export report</button><button class="primary-btn" id="addBookingBtn"><span>＋</span> New booking</button></div>
         </div>
+        <section id="adminLivePanel" class="panel table-panel admin-live-panel hidden" aria-live="polite">
+          <div class="admin-metrics">
+            <article><span>Trains</span><strong id="metricTrains">—</strong></article>
+            <article><span>Schedules</span><strong id="metricSchedules">—</strong></article>
+            <article><span>Bookings</span><strong id="metricBookings">—</strong></article>
+            <article><span>Passengers</span><strong id="metricPassengers">—</strong></article>
+          </div>
+          <div class="panel-head table-panel-head admin-table-head"><div><h2 id="adminTableTitle">Live railway data</h2><p id="adminTableSubtitle">Records loaded from Aiven MySQL.</p></div><div class="table-actions"><div class="table-search"><span>⌕</span><input id="adminTableSearch" placeholder="Filter records..." aria-label="Filter records" /></div><button type="button" class="secondary-btn compact" id="refreshAdminData">Refresh ↻</button></div></div>
+          <div class="table-scroll"><table><thead id="adminTableHead"></thead><tbody id="adminTableBody"></tbody></table><div id="adminEmpty" class="empty-state hidden">No database records found.</div></div>
+          <div class="table-footer"><span id="adminRowCount">No rows loaded.</span><span class="admin-data-source"><span class="live-dot"></span> Source: Aiven MySQL</span></div>
+        </section>
+
         <div class="banner"><div class="banner-symbol">↗</div><div><strong>Network performance is looking good</strong><p>On-time performance is up <b>4.8%</b> compared to last week. Keep it moving.</p></div><button class="banner-link" id="viewReportBtn">View performance <span>→</span></button><button class="banner-close" id="bannerClose" aria-label="Dismiss">×</button></div>
 
         <div class="section-head"><div><h2>Network at a glance</h2><p>Live snapshot of your railway operations</p></div><button class="period-select" id="periodBtn">Last 7 days <span>⌄</span></button></div>
@@ -145,7 +195,7 @@
           <section class="panel status-panel"><div class="panel-head"><div><h2>Train status</h2><p>Current network availability</p></div><button class="text-action" data-goto="Train Management">View all →</button></div><div class="donut-area"><div class="donut"><div class="donut-center"><strong>248</strong><small>Total trains</small></div></div><div class="donut-legend"><div><span class="legend-dot green-dot"></span><span>Running</span><strong>186</strong><small>75%</small></div><div><span class="legend-dot violet-dot"></span><span>Scheduled</span><strong>42</strong><small>17%</small></div><div><span class="legend-dot orange-dot"></span><span>Maintenance</span><strong>20</strong><small>8%</small></div></div></div><div class="status-bottom"><span class="live-dot"></span> Updated just now <span>•</span> Auto-refresh enabled</div></section>
         </div>
 
-        <section class="panel table-panel"><div class="panel-head table-panel-head"><div><h2>Recent train activity</h2><p>Monitor your latest train movements and schedules</p></div><div class="table-actions"><div class="table-search"><span>⌕</span><input id="tableSearch" placeholder="Search trains..." aria-label="Search trains" /></div><button class="secondary-btn compact" id="filterBtn">☷ Filters</button><button class="text-action" data-goto="Train Management">View all <span>→</span></button></div></div>
+        <section id="sampleTrainPanel" class="panel table-panel"><div class="panel-head table-panel-head"><div><h2>Recent train activity</h2><p>Monitor your latest train movements and schedules</p></div><div class="table-actions"><div class="table-search"><span>⌕</span><input id="tableSearch" placeholder="Search trains..." aria-label="Search trains" /></div><button class="secondary-btn compact" id="filterBtn">☷ Filters</button><button class="text-action" data-goto="Train Management">View all <span>→</span></button></div></div>
           <div class="table-scroll"><table><thead><tr><th>TRAIN DETAILS</th><th>ROUTE</th><th>DEPARTURE</th><th>ARRIVAL</th><th>STATUS</th><th>OCCUPANCY</th><th></th></tr></thead><tbody id="trainTable">
             <tr data-search="12701 rajdhani express mumbai new delhi"><td><div class="train-cell"><span class="train-icon">▰</span><div><strong>Rajdhani Express</strong><small>12701 · Express</small></div></div></td><td><div class="route-cell">Mumbai <span>→</span> New Delhi</div><small class="muted-small">1,384 km</small></td><td><strong>16:35</strong><small class="muted-small">CST, Mumbai</small></td><td><strong>08:30</strong><small class="muted-small">NDLS, Delhi</small></td><td><span class="status-tag running"><i></i> Running</span></td><td><div class="occupancy"><div class="occupancy-track"><i style="width:78%"></i></div><span>78%</span></div></td><td><button class="row-menu" aria-label="More options">•••</button></td></tr>
             <tr data-search="12002 shatabdi express new delhi chandigarh"><td><div class="train-cell"><span class="train-icon blue-bg">▰</span><div><strong>Shatabdi Express</strong><small>12002 · Superfast</small></div></div></td><td><div class="route-cell">New Delhi <span>→</span> Chandigarh</div><small class="muted-small">244 km</small></td><td><strong>17:20</strong><small class="muted-small">NDLS, Delhi</small></td><td><strong>20:35</strong><small class="muted-small">CDG, Chandigarh</small></td><td><span class="status-tag scheduled"><i></i> Scheduled</span></td><td><div class="occupancy"><div class="occupancy-track"><i style="width:54%"></i></div><span>54%</span></div></td><td><button class="row-menu" aria-label="More options">•••</button></td></tr>
