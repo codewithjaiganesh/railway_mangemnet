@@ -1,6 +1,6 @@
 // RailFlow frontend. The initial train-search page HTML/CSS layout is preserved.
 // For local use keep localhost:3000. Replace with the deployed backend URL when hosting.
-const API_BASE = "https://railway-mangemnet.onrender.com";
+const API_BASE = "https://railway-mangemnet.onrender.com/api";
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
 const TOKEN_KEY = "railflow_token";
