@@ -2,45 +2,55 @@ require("dotenv").config({ path: require("path").join(__dirname, ".env") });
 const pool = require("./db");
 
 const stationRows = [
-  ["HYB", "Hyderabad Deccan", "Hyderabad"],
-  ["SC", "Secunderabad Junction", "Secunderabad"],
-  ["BZA", "Vijayawada Junction", "Vijayawada"],
-  ["MAS", "Chennai Central", "Chennai"],
-  ["SBC", "Bengaluru City", "Bengaluru"],
-  ["MMCT", "Mumbai Central", "Mumbai"],
-  ["NDLS", "New Delhi", "New Delhi"],
-  ["VSKP", "Visakhapatnam", "Visakhapatnam"],
-  ["TPTY", "Tirupati", "Tirupati"],
-  ["PUNE", "Pune Junction", "Pune"]
+  ["HYB", "Hyderabad Deccan", "Hyderabad", "Telangana"],
+  ["SC", "Secunderabad Junction", "Secunderabad", "Telangana"],
+  ["BZA", "Vijayawada Junction", "Vijayawada", "Andhra Pradesh"],
+  ["MAS", "Chennai Central", "Chennai", "Tamil Nadu"],
+  ["SBC", "Bengaluru City", "Bengaluru", "Karnataka"],
+  ["MMCT", "Mumbai Central", "Mumbai", "Maharashtra"],
+  ["NDLS", "New Delhi", "New Delhi", "Delhi"],
+  ["VSKP", "Visakhapatnam", "Visakhapatnam", "Andhra Pradesh"],
+  ["TPTY", "Tirupati", "Tirupati", "Andhra Pradesh"],
+  ["PUNE", "Pune Junction", "Pune", "Maharashtra"]
 ];
 
 const trainRows = [
-  ["RF1001", "RailFlow Demo Express", "Express"],
-  ["RF1002", "Deccan Sample Express", "Express"],
-  ["RF1003", "Coastal Sample Express", "Intercity"],
-  ["RF1004", "Southern Sample Connector", "Superfast"],
-  ["12727", "Godavari Express", "Express"],
-  ["12740", "Garib Rath Express", "Superfast"]
+  ["RF1001", "RailFlow Demo Express", "Express", "Hyderabad Deccan", "Chennai Central", 1200, "Active"],
+  ["RF1002", "Deccan Sample Express", "Express", "Hyderabad Deccan", "Visakhapatnam", 900, "Active"],
+  ["RF1003", "Coastal Sample Express", "Intercity", "Secunderabad Junction", "Vijayawada Junction", 800, "Active"],
+  ["RF1004", "Southern Sample Connector", "Superfast", "Bengaluru City", "New Delhi", 1000, "Scheduled"],
+  ["RF1005", "Krishna Valley Demo Express", "Express", "Hyderabad Deccan", "Vijayawada Junction", 900, "Active"],
+  ["RF1006", "Tirupati Sample Connector", "Intercity", "Hyderabad Deccan", "Tirupati", 700, "Active"],
+  ["12727", "Godavari Express (Demo record)", "Express", "Hyderabad Deccan", "Visakhapatnam", 900, "Active"],
+  ["12740", "Garib Rath Express (Demo record)", "Superfast", "Secunderabad Junction", "Visakhapatnam", 850, "Active"]
 ];
 
 const schedules = [
-  { train: "RF1001", from: "HYB", to: "MAS", departure: "18:10:00", arrival: "06:50:00", seats: 100, fare: 650 },
-  { train: "RF1002", from: "HYB", to: "VSKP", departure: "17:30:00", arrival: "06:30:00", seats: 80, fare: 580 },
-  { train: "RF1003", from: "SC", to: "BZA", departure: "07:30:00", arrival: "12:30:00", seats: 90, fare: 420 },
-  { train: "RF1004", from: "SBC", to: "NDLS", departure: "20:15:00", arrival: "10:45:00", seats: 70, fare: 950 }
+  { train: "RF1001", from: "HYB", to: "MAS", departure: "18:10:00", arrival: "06:50:00", seats: 100, fare: 650, sourcePlatform: 1, destinationPlatform: 4 },
+  { train: "RF1002", from: "HYB", to: "VSKP", departure: "17:30:00", arrival: "06:30:00", seats: 80, fare: 580, sourcePlatform: 2, destinationPlatform: 3 },
+  { train: "RF1003", from: "SC", to: "BZA", departure: "07:30:00", arrival: "12:30:00", seats: 90, fare: 420, sourcePlatform: 5, destinationPlatform: 2 },
+  { train: "RF1004", from: "SBC", to: "NDLS", departure: "20:15:00", arrival: "10:45:00", seats: 70, fare: 950, sourcePlatform: 6, destinationPlatform: 8 },
+  { train: "RF1005", from: "HYB", to: "BZA", departure: "09:20:00", arrival: "14:10:00", seats: 110, fare: 350, sourcePlatform: 3, destinationPlatform: 1 },
+  { train: "RF1006", from: "HYB", to: "TPTY", departure: "21:00:00", arrival: "07:20:00", seats: 65, fare: 520, sourcePlatform: 4, destinationPlatform: 2 }
 ];
 
 async function seedData() {
   try {
     for (const station of stationRows) {
       await pool.query(
-        "INSERT IGNORE INTO stations (station_code, station_name, city) VALUES (?, ?, ?)",
+        `INSERT INTO stations (station_code, station_name, city, state) VALUES (?, ?, ?, ?)
+         ON DUPLICATE KEY UPDATE station_name=VALUES(station_name), city=VALUES(city), state=VALUES(state)`,
         station
       );
     }
     for (const train of trainRows) {
       await pool.query(
-        "INSERT IGNORE INTO trains (train_number, train_name, train_type) VALUES (?, ?, ?)",
+        `INSERT INTO trains (train_number, train_name, train_type, source, destination, capacity, status)
+         VALUES (?, ?, ?, ?, ?, ?, ?)
+         ON DUPLICATE KEY UPDATE train_name=VALUES(train_name), train_type=VALUES(train_type),
+           source=IF(source IS NULL OR source='', VALUES(source), source),
+           destination=IF(destination IS NULL OR destination='', VALUES(destination), destination),
+           capacity=IF(capacity=0, VALUES(capacity), capacity)`,
         train
       );
     }
@@ -77,6 +87,25 @@ async function seedData() {
                                    destination_station_id = VALUES(destination_station_id)`,
           [item.from, item.to, item.train, item.departure]
         );
+
+        await pool.query(
+          `INSERT INTO train_schedule (schedule_id, train_id, station_id, arrival_time, departure_time, platform_no, stop_number)
+           SELECT s.id, s.train_id, src.id, NULL, s.departure_time, ?, 1
+           FROM schedules s JOIN trains t ON t.id=s.train_id
+           JOIN schedule_routes r ON r.schedule_id=s.id JOIN stations src ON src.id=r.source_station_id
+           WHERE t.train_number=? AND s.journey_date=${dateExpression} AND s.departure_time=?
+           ON DUPLICATE KEY UPDATE station_id=VALUES(station_id), departure_time=VALUES(departure_time), platform_no=VALUES(platform_no)`,
+          [item.sourcePlatform || null, item.train, item.departure]
+        );
+        await pool.query(
+          `INSERT INTO train_schedule (schedule_id, train_id, station_id, arrival_time, departure_time, platform_no, stop_number)
+           SELECT s.id, s.train_id, dst.id, s.arrival_time, NULL, ?, 2
+           FROM schedules s JOIN trains t ON t.id=s.train_id
+           JOIN schedule_routes r ON r.schedule_id=s.id JOIN stations dst ON dst.id=r.destination_station_id
+           WHERE t.train_number=? AND s.journey_date=${dateExpression} AND s.departure_time=?
+           ON DUPLICATE KEY UPDATE station_id=VALUES(station_id), arrival_time=VALUES(arrival_time), platform_no=VALUES(platform_no)`,
+          [item.destinationPlatform || null, item.train, item.departure]
+        );
       }
     }
 
@@ -95,7 +124,7 @@ async function seedData() {
     console.table(stationResults);
     console.log("Upcoming RailFlow demo schedules (next 7 days):");
     console.table(scheduleResults);
-    console.log("Seed completed. A rolling seven-day schedule is available. Fares/routes are illustrative demo data, not live railway inventory.");
+    console.log("Seed completed. Stations, trains, seven-day schedules and train stops are available. Fares/routes are illustrative demo data, not live railway inventory.");
   } catch (error) {
     console.error("Seed failed:", error.message);
     process.exitCode = 1;
